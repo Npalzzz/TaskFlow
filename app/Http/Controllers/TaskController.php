@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -10,17 +11,24 @@ class TaskController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
-    }
+{
+    $tasks = \App\Models\Task::with('category')
+                ->where('user_id', auth()->id())
+                ->latest()
+                ->get();
+
+    return view('tasks.index', compact('tasks'));
+}
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        //
-    }
+{
+    $categories = Category::all();
+
+    return view('tasks.create', compact('categories'));
+}
 
     /**
      * Store a newly created resource in storage.
