@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Task extends Model
 {
     protected $fillable = [
-        'user_id',
-        'category_id',
-        'judul',
-        'deskripsi',
-        'deadline',
-        'priority',
-        'status',
-        'reminder_enabled',
-        'reminder_days'
-    ];
+    'user_id',
+    'category_id',
+    'judul',
+    'deskripsi',
+    'deadline',
+    'priority',
+    'status',
+    'reminder_enabled',
+    'reminder_days',
+];
 
     public function user(): BelongsTo
     {
