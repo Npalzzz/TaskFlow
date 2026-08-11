@@ -47,7 +47,7 @@
                             @enderror
                         </div>
 
-                        {{-- Row 1: Kategori & Status --}}
+                       
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div>
                                 <label for="category_id" class="block text-sm font-semibold text-gray-700 mb-2">
