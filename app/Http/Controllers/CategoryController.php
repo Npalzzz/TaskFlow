@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -12,7 +13,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::withCount('tasks')->get();
+        $user = Auth::user();
+
+        $categories = Category::where('user_id', $user->id)
+            ->withCount('tasks')
+            ->orderBy('nama_kategori', 'asc')
+            ->get();
 
         return view('categories.index', compact('categories'));
     }
@@ -22,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -31,23 +37,31 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_kategori' => 'required|max:255'
+            'nama_kategori' => 'required|string|max:255',
         ]);
 
         Category::create([
-            'nama_kategori' => $request->nama_kategori
+            'user_id' => Auth::id(),
+            'nama_kategori' => $request->nama_kategori,
         ]);
 
-        return redirect()->route('categories.index')
+        return redirect()
+            ->route('categories.index')
             ->with('success', 'Kategori berhasil ditambahkan.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Category $category)
     {
-        //
+        // Pastikan kategori milik user yang sedang login.
+        abort_unless(
+            $category->user_id === Auth::id(),
+            403
+        );
+
+        return view('categories.show', compact('category'));
     }
 
     /**
@@ -55,6 +69,12 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        // Jangan izinkan user mengedit kategori milik user lain.
+        abort_unless(
+            $category->user_id === Auth::id(),
+            403
+        );
+
         return view('categories.edit', compact('category'));
     }
 
@@ -63,15 +83,22 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        // Pastikan kategori milik user yang sedang login.
+        abort_unless(
+            $category->user_id === Auth::id(),
+            403
+        );
+
         $request->validate([
-            'nama_kategori' => 'required|max:255'
+            'nama_kategori' => 'required|string|max:255',
         ]);
 
         $category->update([
-            'nama_kategori' => $request->nama_kategori
+            'nama_kategori' => $request->nama_kategori,
         ]);
 
-        return redirect()->route('categories.index')
+        return redirect()
+            ->route('categories.index')
             ->with('success', 'Kategori berhasil diperbarui.');
     }
 
@@ -80,9 +107,16 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        // Jangan izinkan user menghapus kategori milik user lain.
+        abort_unless(
+            $category->user_id === Auth::id(),
+            403
+        );
+
         $category->delete();
 
-        return redirect()->route('categories.index')
+        return redirect()
+            ->route('categories.index')
             ->with('success', 'Kategori berhasil dihapus.');
     }
 }

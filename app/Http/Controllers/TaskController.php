@@ -11,25 +11,45 @@ class TaskController extends Controller
     /**
      * Menampilkan semua tugas milik user yang sedang login.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->input('search');
+
         $tasks = Task::with('category')
             ->where('user_id', auth()->id())
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('judul', 'like', '%' . $search . '%')
+                        ->orWhere('deskripsi', 'like', '%' . $search . '%')
+                        ->orWhereHas('category', function ($categoryQuery) use ($search) {
+                            $categoryQuery->where(
+                                'nama_kategori',
+                                'like',
+                                '%' . $search . '%'
+                            );
+                        });
+                });
+            })
             ->latest()
             ->get();
 
-        return view('tasks.index', compact('tasks'));
+        return view('tasks.index', compact('tasks', 'search'));
     }
+
 
     /**
      * Menampilkan form tambah tugas.
      */
     public function create()
     {
-        $categories = Category::all();
+        // Hanya mengambil kategori milik user yang sedang login.
+        $categories = Category::where('user_id', auth()->id())
+            ->orderBy('nama_kategori', 'asc')
+            ->get();
 
         return view('tasks.create', compact('categories'));
     }
+
 
     /**
      * Menyimpan tugas baru.
@@ -39,7 +59,10 @@ class TaskController extends Controller
         $validated = $request->validate([
             'judul' => ['required', 'max:255'],
             'deskripsi' => ['nullable'],
-            'category_id' => ['required', 'exists:categories,id'],
+            'category_id' => [
+                'required',
+                'exists:categories,id,user_id,' . auth()->id(),
+            ],
             'deadline' => ['required', 'date'],
             'priority' => ['required'],
             'status' => ['required'],
@@ -62,6 +85,7 @@ class TaskController extends Controller
             ->with('success', 'Tugas berhasil ditambahkan!');
     }
 
+
     /**
      * Menampilkan detail tugas.
      */
@@ -74,6 +98,7 @@ class TaskController extends Controller
         return view('tasks.show', compact('task'));
     }
 
+
     /**
      * Menampilkan form edit tugas.
      */
@@ -81,10 +106,14 @@ class TaskController extends Controller
     {
         $this->checkTaskOwner($task);
 
-        $categories = Category::all();
+        // Hanya kategori milik user yang sedang login.
+        $categories = Category::where('user_id', auth()->id())
+            ->orderBy('nama_kategori', 'asc')
+            ->get();
 
         return view('tasks.edit', compact('task', 'categories'));
     }
+
 
     /**
      * Memperbarui tugas.
@@ -96,7 +125,10 @@ class TaskController extends Controller
         $validated = $request->validate([
             'judul' => ['required', 'max:255'],
             'deskripsi' => ['nullable'],
-            'category_id' => ['required', 'exists:categories,id'],
+            'category_id' => [
+                'required',
+                'exists:categories,id,user_id,' . auth()->id(),
+            ],
             'deadline' => ['required', 'date'],
             'priority' => ['required'],
             'status' => ['required'],
@@ -116,6 +148,7 @@ class TaskController extends Controller
             ->with('success', 'Tugas berhasil diperbarui!');
     }
 
+
     /**
      * Menghapus tugas.
      */
@@ -129,6 +162,7 @@ class TaskController extends Controller
             ->route('tasks.index')
             ->with('success', 'Tugas berhasil dihapus!');
     }
+
 
     /**
      * Memastikan tugas hanya bisa diakses pemiliknya.

@@ -8,25 +8,41 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 
-
+/*
+|--------------------------------------------------------------------------
+| Public Routes
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 
-
+/*
+|--------------------------------------------------------------------------
+| Dashboard User
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
 
-
+/*
+|--------------------------------------------------------------------------
+| Authenticated User Routes
+|--------------------------------------------------------------------------
+*/
 
 Route::middleware('auth')->group(function () {
 
-    
+    /*
+    |--------------------------------------------------------------------------
+    | Profile
+    |--------------------------------------------------------------------------
+    */
 
     Route::get('/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');
@@ -38,48 +54,79 @@ Route::middleware('auth')->group(function () {
         ->name('profile.destroy');
 
 
-    
+    /*
+    |--------------------------------------------------------------------------
+    | Categories
+    |--------------------------------------------------------------------------
+    */
 
     Route::resource('categories', CategoryController::class);
 
 
-   
+    /*
+    |--------------------------------------------------------------------------
+    | Tasks
+    |--------------------------------------------------------------------------
+    */
 
     Route::resource('tasks', TaskController::class);
-
-
-    
-
-    Route::get('/admin/dashboard', [AdminController::class, 'index'])
-        ->name('admin.dashboard');
-
-
-    
-    Route::get('/admin/users', [AdminController::class, 'users'])
-        ->name('admin.users');
-
-    
-    Route::get('/admin/users/create', [AdminController::class, 'createUser'])
-        ->name('admin.users.create');
-
-   
-    Route::post('/admin/users', [AdminController::class, 'storeUser'])
-        ->name('admin.users.store');
-
-  
-    Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])
-        ->name('admin.users.edit');
-
-    
-    Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])
-        ->name('admin.users.update');
-
-    
-    Route::delete('/admin/users/{user}', [AdminController::class, 'destroyUser'])
-        ->name('admin.users.destroy');
 });
 
 
+/*
+|--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+|
+| Hanya user dengan role "admin" yang dapat mengakses
+| seluruh route di bawah ini.
+|
+*/
 
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin')
+    ->group(function () {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Admin Dashboard
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/dashboard', [AdminController::class, 'index'])
+            ->name('admin.dashboard');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | User Management
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/users', [AdminController::class, 'users'])
+            ->name('admin.users');
+
+        Route::get('/users/create', [AdminController::class, 'createUser'])
+            ->name('admin.users.create');
+
+        Route::post('/users', [AdminController::class, 'storeUser'])
+            ->name('admin.users.store');
+
+        Route::get('/users/{user}/edit', [AdminController::class, 'editUser'])
+            ->name('admin.users.edit');
+
+        Route::put('/users/{user}', [AdminController::class, 'updateUser'])
+            ->name('admin.users.update');
+
+        Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])
+            ->name('admin.users.destroy');
+    });
+
+
+/*
+|--------------------------------------------------------------------------
+| Authentication Routes
+|--------------------------------------------------------------------------
+*/
 
 require __DIR__ . '/auth.php';

@@ -40,7 +40,7 @@
                             </p>
 
                             <p class="text-xs text-gray-400">
-                                Task Management
+                                Kelola Tugas Sekolah Tanpa Ribet!
                             </p>
                         </div>
 
@@ -261,31 +261,56 @@
                         class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-700 p-6 text-white shadow-sm md:p-8"
                     >
 
-                        <div class="relative z-10 flex items-center gap-5">
+                        <div class="relative z-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
-                            {{-- Avatar --}}
-                            <div
-                                class="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-white/15 text-3xl font-bold backdrop-blur-sm"
+                            <div class="flex items-center gap-5">
+
+                                {{-- Avatar --}}
+                                <div
+                                    class="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-white/15 text-3xl font-bold backdrop-blur-sm"
+                                >
+                                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                                </div>
+
+
+                                <div>
+
+                                    <p class="text-sm font-medium text-indigo-100">
+                                        Pengaturan akun
+                                    </p>
+
+                                    <h1 class="mt-1 text-3xl font-bold tracking-tight">
+                                        Profil Saya
+                                    </h1>
+
+                                    <p class="mt-2 text-sm text-indigo-100">
+                                        Kelola informasi akun dan keamanan password kamu.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            {{-- Tombol Kembali ke Dashboard --}}
+                            <a
+                                href="{{ route('dashboard') }}"
+                                class="inline-flex items-center justify-center gap-2 shrink-0 rounded-xl bg-white/15 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/25 focus:outline-none focus:ring-2 focus:ring-white/50"
                             >
-                                {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                            </div>
-
-
-                            <div>
-
-                                <p class="text-sm font-medium text-indigo-100">
-                                    Pengaturan akun
-                                </p>
-
-                                <h1 class="mt-1 text-3xl font-bold tracking-tight">
-                                    Profil Saya
-                                </h1>
-
-                                <p class="mt-2 text-sm text-indigo-100">
-                                    Kelola informasi akun dan keamanan password kamu.
-                                </p>
-
-                            </div>
+                                <svg
+                                    class="h-4 w-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+                                    />
+                                </svg>
+                                Kembali ke Dashboard
+                            </a>
 
                         </div>
 
