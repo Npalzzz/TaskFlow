@@ -38,7 +38,7 @@ return new class extends Migration
 
         $table->boolean('reminder_enabled')->default(true);
 
-        $table->integer('reminder_days')->default(1);
+        $table->integer('reminder_days')->default(7);
 
         $table->timestamps();
     });

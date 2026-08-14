@@ -459,7 +459,7 @@
 
                     <div>
                         <p class="font-medium text-gray-900">
-                            Akses admin
+                            Akses Admin
                         </p>
 
                         <p class="mt-1 text-sm leading-6 text-gray-500">

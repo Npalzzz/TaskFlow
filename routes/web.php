@@ -5,6 +5,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -70,6 +71,27 @@ Route::middleware('auth')->group(function () {
     */
 
     Route::resource('tasks', TaskController::class);
+
+    /*
+|--------------------------------------------------------------------------
+| Notifications
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/notifications', [NotificationController::class, 'index'])
+    ->name('notifications.index');
+
+Route::get('/notifications/latest', [NotificationController::class, 'latest'])
+    ->name('notifications.latest');
+
+Route::post('/notifications/{notification}/read', [NotificationController::class, 'markAsRead'])
+    ->name('notifications.read');
+
+Route::post('/notifications/{notification}/read-ajax', [NotificationController::class, 'markAsReadAjax'])
+    ->name('notifications.read.ajax');
+
+Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead'])
+    ->name('notifications.read.all');
 });
 
 
