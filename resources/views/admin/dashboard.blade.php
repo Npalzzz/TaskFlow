@@ -31,6 +31,90 @@
     <div class="min-h-screen bg-gray-50 py-8">
         <div class="mx-auto w-full max-w-7xl space-y-6 px-4 sm:px-6 lg:px-8">
 
+         
+{{-- ================================================= --}}
+{{-- TOP BAR ADMIN --}}
+{{-- ================================================= --}}
+
+<div class="mb-6 flex items-center justify-end">
+
+    <div class="flex items-center gap-3">
+
+        {{-- USER INFO --}}
+
+        <div class="hidden items-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-2 shadow-sm sm:flex">
+
+            <div
+                class="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-100 font-semibold text-indigo-600"
+            >
+                {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+            </div>
+
+            <div class="min-w-0">
+
+                <p class="max-w-32 truncate text-sm font-semibold text-gray-900">
+                    {{ Auth::user()->name }}
+                </p>
+
+                <p class="text-xs text-gray-400">
+                    Administrator
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {{-- LOGOUT --}}
+
+        <form
+            method="POST"
+            action="{{ route('logout') }}"
+        >
+
+            @csrf
+
+            <button
+                type="submit"
+                class="flex h-11 items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 text-sm font-medium text-gray-600 shadow-sm transition hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600"
+            >
+
+                <svg
+                    class="h-5 w-5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    viewBox="0 0 24 24"
+                >
+
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15"
+                    />
+
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M18 15l3-3m0 0l-3-3m3 3H9"
+                    />
+
+                </svg>
+
+                <span class="hidden sm:inline">
+                    Keluar
+                </span>
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
             {{-- Banner admin --}}
             <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-700 px-6 py-8 text-white shadow-sm sm:px-8 sm:py-10">
                 <div class="relative z-10 max-w-2xl">
