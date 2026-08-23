@@ -1,457 +1,485 @@
 <x-app-layout>
-    <div class="py-12 bg-gradient-to-br from-slate-50 via-gray-50 to-indigo-50/30 min-h-screen">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6">
+    <div class="min-h-screen bg-slate-50/50 py-8">
+        <div class="mx-auto max-w-4xl space-y-8 px-6">
 
-            {{-- Header & Navigasi --}}
-            <div class="mb-8 flex items-center justify-between">
+            {{-- ================================================= --}}
+            {{-- HEADER BANNER --}}
+            {{-- ================================================= --}}
+            <div class="relative overflow-hidden rounded-[2rem] bg-slate-900 p-8 shadow-2xl shadow-indigo-900/20 md:p-10">
 
-                <div class="flex items-center gap-3.5">
+                <div class="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-indigo-500/40 blur-[80px]"></div>
+                <div class="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-violet-600/30 blur-[80px]"></div>
+                <div class="absolute left-1/2 top-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-400/10 blur-3xl"></div>
 
-                    <div class="w-12 h-12 rounded-2xl bg-indigo-600/10 text-indigo-600 flex items-center justify-center font-bold shadow-inner">
-
-                        <svg class="w-6 h-6"
-                             fill="none"
-                             stroke="currentColor"
-                             stroke-width="2"
-                             viewBox="0 0 24 24">
-
-                            <path stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-
-                        </svg>
-
-                    </div>
+                <div class="relative z-10 flex flex-col justify-between gap-6 md:flex-row md:items-center">
 
                     <div>
-                        <h1 class="text-2xl font-bold text-gray-900 tracking-tight">
+
+                        <div class="flex items-center gap-3">
+
+                            <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-violet-500/20 text-violet-400 ring-1 ring-violet-400/20">
+                                <svg
+                                    class="h-5 w-5"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                                    />
+                                </svg>
+                            </div>
+
+                            <p class="text-xs font-bold uppercase tracking-widest text-violet-400">
+                                Task Management
+                            </p>
+
+                        </div>
+
+                        <h1 class="mt-4 text-3xl font-extrabold tracking-tight text-white md:text-4xl">
                             Edit Task
                         </h1>
 
-                        <p class="text-sm text-gray-500 mt-0.5">
-                            Perbarui rincian tugas sesuai dengan progres atau perubahan terbaru.
+                        <p class="mt-3 max-w-xl text-sm leading-relaxed text-slate-400 md:text-base">
+                            Perbarui informasi, status, prioritas, deadline, atau pengingat dari tugas yang sedang kamu kelola.
                         </p>
+
+                    </div>
+
+                    <div class="hidden shrink-0 md:block">
+                        <div class="flex h-20 w-20 items-center justify-center rounded-[1.5rem] bg-white/10 text-4xl shadow-inner ring-1 ring-white/10 backdrop-blur-md">
+                            ✏️
+                        </div>
                     </div>
 
                 </div>
+            </div>
 
-                <a href="{{ route('tasks.index') }}"
-                   class="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200/80 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition shadow-sm hover:shadow">
 
-                    <svg class="w-4 h-4"
-                         fill="none"
-                         stroke="currentColor"
-                         stroke-width="2"
-                         viewBox="0 0 24 24">
+            {{-- ================================================= --}}
+            {{-- NAVIGASI --}}
+            {{-- ================================================= --}}
+            <div class="flex items-center justify-between">
 
-                        <path stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-
+                <a
+                    href="{{ route('tasks.index') }}"
+                    class="group inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm ring-1 ring-slate-200 transition-all duration-300 hover:-translate-x-0.5 hover:bg-slate-50 hover:text-indigo-600 hover:ring-indigo-200"
+                >
+                    <svg
+                        class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                        />
                     </svg>
 
-                    Kembali
-
+                    Daftar Task
                 </a>
+
+                <div class="hidden items-center gap-2 text-xs font-medium text-slate-400 sm:flex">
+                    <span class="h-1.5 w-1.5 rounded-full bg-violet-500"></span>
+                    TaskFlow
+                    <span>/</span>
+                    Edit Task
+                </div>
 
             </div>
 
 
-            {{-- Form Card --}}
-            <div class="bg-white rounded-3xl border border-gray-100 shadow-xl shadow-indigo-500/5 overflow-hidden">
+            {{-- ================================================= --}}
+            {{-- FORM CARD --}}
+            {{-- ================================================= --}}
+            <div class="overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white shadow-xl shadow-indigo-900/5">
+
+                <div class="border-b border-slate-100 bg-gradient-to-r from-violet-50/70 via-white to-indigo-50/50 px-6 py-5 md:px-8">
+
+                    <div class="flex items-center gap-3">
+
+                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-100 text-violet-600">
+                            <svg
+                                class="h-5 w-5"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                                />
+                            </svg>
+                        </div>
+
+                        <div>
+                            <h2 class="font-bold text-slate-800">
+                                Perbarui Informasi Task
+                            </h2>
+
+                            <p class="text-xs font-medium text-slate-500">
+                                Sesuaikan data task dengan kondisi terbarunya.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
 
                 <form action="{{ route('tasks.update', $task) }}" method="POST">
 
                     @csrf
                     @method('PUT')
 
-                    <div class="p-6 md:p-8 space-y-6">
+                    <div class="space-y-7 p-6 md:p-8">
 
-                        {{-- Judul Task --}}
+                        {{-- ================================================= --}}
+                        {{-- JUDUL --}}
+                        {{-- ================================================= --}}
                         <div>
-
-                            <label for="judul"
-                                   class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-1.5">
-
-                                <svg class="w-4 h-4 text-gray-400"
-                                     fill="none"
-                                     stroke="currentColor"
-                                     stroke-width="2"
-                                     viewBox="0 0 24 24">
-
-                                    <path stroke-linecap="round"
-                                          stroke-linejoin="round"
-                                          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-
+                            <label
+                                for="judul"
+                                class="mb-2 flex items-center gap-1.5 text-sm font-bold text-slate-700"
+                            >
+                                <svg
+                                    class="h-4 w-4 text-indigo-500"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                                    />
                                 </svg>
 
                                 Judul Task
                                 <span class="text-rose-500">*</span>
-
                             </label>
 
-                            <input type="text"
-                                   id="judul"
-                                   name="judul"
-                                   value="{{ old('judul', $task->judul) }}"
-                                   placeholder="Contoh: Mengerjakan laporan PKL"
-                                   required
-                                   class="w-full rounded-xl border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition duration-200 @error('judul') border-rose-400 @enderror">
+                            <input
+                                type="text"
+                                id="judul"
+                                name="judul"
+                                value="{{ old('judul', $task->judul) }}"
+                                placeholder="Contoh: Mengerjakan laporan PKL"
+                                required
+                                class="w-full rounded-xl border-slate-200 bg-slate-50/40 px-4 py-3 text-slate-900 placeholder-slate-400 outline-none transition duration-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 @error('judul') border-rose-400 @enderror"
+                            >
 
                             @error('judul')
-                                <p class="text-xs text-rose-500 mt-1.5 flex items-center gap-1">
+                                <p class="mt-1.5 text-xs text-rose-500">
                                     {{ $message }}
                                 </p>
                             @enderror
-
                         </div>
 
 
-                        {{-- Deskripsi --}}
+                        {{-- ================================================= --}}
+                        {{-- DESKRIPSI --}}
+                        {{-- ================================================= --}}
                         <div>
-
-                            <label for="deskripsi"
-                                   class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-1.5">
-
-                                <svg class="w-4 h-4 text-gray-400"
-                                     fill="none"
-                                     stroke="currentColor"
-                                     stroke-width="2"
-                                     viewBox="0 0 24 24">
-
-                                    <path stroke-linecap="round"
-                                          stroke-linejoin="round"
-                                          d="M4 6h16M4 12h16M4 18h7"/>
-
+                            <label
+                                for="deskripsi"
+                                class="mb-2 flex items-center gap-1.5 text-sm font-bold text-slate-700"
+                            >
+                                <svg
+                                    class="h-4 w-4 text-indigo-500"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M4 6h16M4 12h16M4 18h7"
+                                    />
                                 </svg>
 
                                 Deskripsi
-                                <span class="text-xs font-normal text-gray-400">
+                                <span class="text-xs font-normal text-slate-400">
                                     (Opsional)
                                 </span>
-
                             </label>
 
-                            <textarea id="deskripsi"
-                                      name="deskripsi"
-                                      rows="4"
-                                      placeholder="Tuliskan detail atau catatan mengenai task ini..."
-                                      class="w-full rounded-xl border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition duration-200 @error('deskripsi') border-rose-400 @enderror">{{ old('deskripsi', $task->deskripsi) }}</textarea>
+                            <textarea
+                                id="deskripsi"
+                                name="deskripsi"
+                                rows="4"
+                                placeholder="Tuliskan detail atau catatan mengenai task ini..."
+                                class="w-full resize-none rounded-xl border-slate-200 bg-slate-50/40 px-4 py-3 text-slate-900 placeholder-slate-400 outline-none transition duration-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 @error('deskripsi') border-rose-400 @enderror"
+                            >{{ old('deskripsi', $task->deskripsi) }}</textarea>
 
                             @error('deskripsi')
-                                <p class="text-xs text-rose-500 mt-1.5 flex items-center gap-1">
+                                <p class="mt-1.5 text-xs text-rose-500">
                                     {{ $message }}
                                 </p>
                             @enderror
-
                         </div>
 
 
-                        {{-- Row 1: Kategori & Status --}}
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        {{-- ================================================= --}}
+                        {{-- KATEGORI + STATUS --}}
+                        {{-- ================================================= --}}
+                        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
 
-                            {{-- Kategori --}}
                             <div>
-
-                                <label for="category_id"
-                                       class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-1.5">
-
-                                    <svg class="w-4 h-4 text-gray-400"
-                                         fill="none"
-                                         stroke="currentColor"
-                                         stroke-width="2"
-                                         viewBox="0 0 24 24">
-
-                                        <path stroke-linecap="round"
-                                              stroke-linejoin="round"
-                                              d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
-
+                                <label
+                                    for="category_id"
+                                    class="mb-2 flex items-center gap-1.5 text-sm font-bold text-slate-700"
+                                >
+                                    <svg class="h-4 w-4 text-indigo-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
                                     </svg>
 
                                     Kategori
                                     <span class="text-rose-500">*</span>
-
                                 </label>
 
-                                <select id="category_id"
-                                        name="category_id"
-                                        required
-                                        class="w-full rounded-xl border-gray-200 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition duration-200 @error('category_id') border-rose-400 @enderror">
-
+                                <select
+                                    id="category_id"
+                                    name="category_id"
+                                    required
+                                    class="w-full rounded-xl border-slate-200 bg-slate-50/40 px-4 py-3 text-slate-900 outline-none transition duration-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 @error('category_id') border-rose-400 @enderror"
+                                >
                                     @foreach($categories as $category)
-
-                                        <option value="{{ $category->id }}"
-                                            {{ old('category_id', $task->category_id) == $category->id ? 'selected' : '' }}>
-
+                                        <option
+                                            value="{{ $category->id }}"
+                                            {{ old('category_id', $task->category_id) == $category->id ? 'selected' : '' }}
+                                        >
                                             {{ $category->nama_kategori }}
-
                                         </option>
-
                                     @endforeach
-
                                 </select>
 
                                 @error('category_id')
-                                    <p class="text-xs text-rose-500 mt-1.5 flex items-center gap-1">
+                                    <p class="mt-1.5 text-xs text-rose-500">
                                         {{ $message }}
                                     </p>
                                 @enderror
-
                             </div>
 
 
-                            {{-- Status --}}
                             <div>
-
-                                <label for="status"
-                                       class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-1.5">
-
-                                    <svg class="w-4 h-4 text-gray-400"
-                                         fill="none"
-                                         stroke="currentColor"
-                                         stroke-width="2"
-                                         viewBox="0 0 24 24">
-
-                                        <path stroke-linecap="round"
-                                              stroke-linejoin="round"
-                                              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0z"/>
-
+                                <label
+                                    for="status"
+                                    class="mb-2 flex items-center gap-1.5 text-sm font-bold text-slate-700"
+                                >
+                                    <svg class="h-4 w-4 text-indigo-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0z"/>
                                     </svg>
 
                                     Status
                                     <span class="text-rose-500">*</span>
-
                                 </label>
 
-                                <select id="status"
-                                        name="status"
-                                        required
-                                        class="w-full rounded-xl border-gray-200 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition duration-200 @error('status') border-rose-400 @enderror">
-
-                                    <option value="Belum"
-                                        {{ old('status', $task->status) === 'Belum' ? 'selected' : '' }}>
+                                <select
+                                    id="status"
+                                    name="status"
+                                    required
+                                    class="w-full rounded-xl border-slate-200 bg-slate-50/40 px-4 py-3 text-slate-900 outline-none transition duration-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 @error('status') border-rose-400 @enderror"
+                                >
+                                    <option value="Belum" {{ old('status', $task->status) === 'Belum' ? 'selected' : '' }}>
                                         Belum
                                     </option>
 
-                                    <option value="Proses"
-                                        {{ old('status', $task->status) === 'Proses' ? 'selected' : '' }}>
+                                    <option value="Proses" {{ old('status', $task->status) === 'Proses' ? 'selected' : '' }}>
                                         Proses
                                     </option>
 
-                                    <option value="Selesai"
-                                        {{ old('status', $task->status) === 'Selesai' ? 'selected' : '' }}>
+                                    <option value="Selesai" {{ old('status', $task->status) === 'Selesai' ? 'selected' : '' }}>
                                         Selesai
                                     </option>
-
                                 </select>
 
                                 @error('status')
-                                    <p class="text-xs text-rose-500 mt-1.5 flex items-center gap-1">
+                                    <p class="mt-1.5 text-xs text-rose-500">
                                         {{ $message }}
                                     </p>
                                 @enderror
-
                             </div>
 
                         </div>
 
 
-                        {{-- Row 2: Prioritas & Deadline --}}
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        {{-- ================================================= --}}
+                        {{-- PRIORITAS + DEADLINE --}}
+                        {{-- ================================================= --}}
+                        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
 
-                            {{-- Prioritas --}}
                             <div>
-
-                                <label for="priority"
-                                       class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-1.5">
-
-                                    <svg class="w-4 h-4 text-gray-400"
-                                         fill="none"
-                                         stroke="currentColor"
-                                         stroke-width="2"
-                                         viewBox="0 0 24 24">
-
-                                        <path stroke-linecap="round"
-                                              stroke-linejoin="round"
-                                              d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 01-2 2z"/>
-
+                                <label
+                                    for="priority"
+                                    class="mb-2 flex items-center gap-1.5 text-sm font-bold text-slate-700"
+                                >
+                                    <svg class="h-4 w-4 text-indigo-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 01-2 2z"/>
                                     </svg>
 
                                     Prioritas
                                     <span class="text-rose-500">*</span>
-
                                 </label>
 
-                                <select id="priority"
-                                        name="priority"
-                                        required
-                                        class="w-full rounded-xl border-gray-200 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition duration-200 @error('priority') border-rose-400 @enderror">
-
-                                    <option value="Rendah"
-                                        {{ old('priority', $task->priority) === 'Rendah' ? 'selected' : '' }}>
+                                <select
+                                    id="priority"
+                                    name="priority"
+                                    required
+                                    class="w-full rounded-xl border-slate-200 bg-slate-50/40 px-4 py-3 text-slate-900 outline-none transition duration-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 @error('priority') border-rose-400 @enderror"
+                                >
+                                    <option value="Rendah" {{ old('priority', $task->priority) === 'Rendah' ? 'selected' : '' }}>
                                         Rendah
                                     </option>
 
-                                    <option value="Sedang"
-                                        {{ old('priority', $task->priority) === 'Sedang' ? 'selected' : '' }}>
+                                    <option value="Sedang" {{ old('priority', $task->priority) === 'Sedang' ? 'selected' : '' }}>
                                         Sedang
                                     </option>
 
-                                    <option value="Tinggi"
-                                        {{ old('priority', $task->priority) === 'Tinggi' ? 'selected' : '' }}>
+                                    <option value="Tinggi" {{ old('priority', $task->priority) === 'Tinggi' ? 'selected' : '' }}>
                                         Tinggi
                                     </option>
-
                                 </select>
 
                                 @error('priority')
-                                    <p class="text-xs text-rose-500 mt-1.5 flex items-center gap-1">
+                                    <p class="mt-1.5 text-xs text-rose-500">
                                         {{ $message }}
                                     </p>
                                 @enderror
-
                             </div>
 
 
-                            {{-- Deadline --}}
                             <div>
-
-                                <label for="deadline"
-                                       class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-1.5">
-
-                                    <svg class="w-4 h-4 text-gray-400"
-                                         fill="none"
-                                         stroke="currentColor"
-                                         stroke-width="2"
-                                         viewBox="0 0 24 24">
-
-                                        <path stroke-linecap="round"
-                                              stroke-linejoin="round"
-                                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-
+                                <label
+                                    for="deadline"
+                                    class="mb-2 flex items-center gap-1.5 text-sm font-bold text-slate-700"
+                                >
+                                    <svg class="h-4 w-4 text-indigo-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                     </svg>
 
                                     Deadline
-                                    <span class="text-xs font-normal text-gray-400">
-                                        <span class="text-rose-500">*</span>
-                                    </span>
-
+                                    <span class="text-rose-500">*</span>
                                 </label>
 
-                                <input type="date"
-                                       id="deadline"
-                                       name="deadline"
-                                       value="{{ old('deadline', $task->deadline ? \Carbon\Carbon::parse($task->deadline)->format('Y-m-d') : '') }}"
-                                       class="w-full rounded-xl border-gray-200 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition duration-200 @error('deadline') border-rose-400 @enderror">
+                                <input
+                                    type="date"
+                                    id="deadline"
+                                    name="deadline"
+                                    value="{{ old('deadline', $task->deadline ? \Carbon\Carbon::parse($task->deadline)->format('Y-m-d') : '') }}"
+                                    class="w-full rounded-xl border-slate-200 bg-slate-50/40 px-4 py-3 text-slate-900 outline-none transition duration-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 @error('deadline') border-rose-400 @enderror"
+                                >
 
                                 @error('deadline')
-                                    <p class="text-xs text-rose-500 mt-1.5 flex items-center gap-1">
+                                    <p class="mt-1.5 text-xs text-rose-500">
                                         {{ $message }}
                                     </p>
                                 @enderror
-
                             </div>
 
                         </div>
 
 
-                        {{-- Pengingat Deadline --}}
+                        {{-- ================================================= --}}
+                        {{-- PENGINGAT --}}
+                        {{-- ================================================= --}}
                         <div>
-
-                            <label for="reminder_days"
-                                   class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-1.5">
-
-                                <svg class="w-4 h-4 text-gray-400"
-                                     fill="none"
-                                     stroke="currentColor"
-                                     stroke-width="2"
-                                     viewBox="0 0 24 24">
-
-                                    <path stroke-linecap="round"
-                                          stroke-linejoin="round"
-                                          d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5"/>
-
+                            <label
+                                for="reminder_days"
+                                class="mb-2 flex items-center gap-1.5 text-sm font-bold text-slate-700"
+                            >
+                                <svg class="h-4 w-4 text-violet-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5"/>
                                 </svg>
 
                                 Pengingat Deadline
                                 <span class="text-rose-500">*</span>
-
                             </label>
 
-
-                            <select id="reminder_days"
-                                    name="reminder_days"
-                                    required
-                                    class="w-full rounded-xl border-gray-200 px-4 py-3 text-gray-900 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition duration-200 @error('reminder_days') border-rose-400 @enderror">
-
-                                <option value="7"
-                                    {{ old('reminder_days', $task->reminder_days ?? 7) == 7 ? 'selected' : '' }}>
+                            <select
+                                id="reminder_days"
+                                name="reminder_days"
+                                required
+                                class="w-full rounded-xl border-slate-200 bg-slate-50/40 px-4 py-3 text-slate-900 outline-none transition duration-200 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 @error('reminder_days') border-rose-400 @enderror"
+                            >
+                                <option value="7" {{ old('reminder_days', $task->reminder_days ?? 7) == 7 ? 'selected' : '' }}>
                                     H-7 — 1 minggu sebelum deadline
                                 </option>
 
-                                <option value="3"
-                                    {{ old('reminder_days', $task->reminder_days) == 3 ? 'selected' : '' }}>
+                                <option value="3" {{ old('reminder_days', $task->reminder_days) == 3 ? 'selected' : '' }}>
                                     H-3 — 3 hari sebelum deadline
                                 </option>
 
-                                <option value="2"
-                                    {{ old('reminder_days', $task->reminder_days) == 2 ? 'selected' : '' }}>
+                                <option value="2" {{ old('reminder_days', $task->reminder_days) == 2 ? 'selected' : '' }}>
                                     H-2 — 2 hari sebelum deadline
                                 </option>
 
-                                <option value="1"
-                                    {{ old('reminder_days', $task->reminder_days) == 1 ? 'selected' : '' }}>
+                                <option value="1" {{ old('reminder_days', $task->reminder_days) == 1 ? 'selected' : '' }}>
                                     H-1 — 1 hari sebelum deadline
                                 </option>
-
                             </select>
 
-
-                            <p class="text-xs text-gray-400 mt-1.5">
+                            <p class="mt-1.5 text-xs text-slate-400">
                                 Pilih kapan pengingat deadline akan dikirim.
                             </p>
 
                             @error('reminder_days')
-                                <p class="text-xs text-rose-500 mt-1.5 flex items-center gap-1">
+                                <p class="mt-1.5 text-xs text-rose-500">
                                     {{ $message }}
                                 </p>
                             @enderror
-
                         </div>
 
                     </div>
 
 
-                    {{-- Form Footer --}}
-                    <div class="px-6 py-4 bg-slate-50/80 border-t border-gray-100 flex items-center justify-end gap-3">
+                    {{-- ================================================= --}}
+                    {{-- FOOTER --}}
+                    {{-- ================================================= --}}
+                    <div class="flex items-center justify-end gap-3 border-t border-slate-100 bg-slate-50/70 px-6 py-5 md:px-8">
 
-                        <a href="{{ route('tasks.index') }}"
-                           class="px-5 py-2.5 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-200/60 transition duration-200">
+                        <a
+                            href="{{ route('tasks.index') }}"
+                            class="rounded-xl px-5 py-2.5 text-sm font-semibold text-slate-500 transition-all hover:bg-slate-200/70 hover:text-slate-700"
+                        >
                             Batal
                         </a>
 
-                        <button type="submit"
-                                class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-sm font-semibold shadow-md shadow-indigo-500/20 hover:shadow-indigo-500/30 transition duration-200 focus:ring-4 focus:ring-indigo-500/20">
-
-                            <svg class="w-4 h-4"
-                                 fill="none"
-                                 stroke="currentColor"
-                                 stroke-width="2.5"
-                                 viewBox="0 0 24 24">
-
-                                <path stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                      d="M5 13l4 4L19 7"/>
-
+                        <button
+                            type="submit"
+                            class="group inline-flex items-center gap-2 rounded-xl bg-violet-600 px-6 py-2.5 text-sm font-bold text-white shadow-md shadow-violet-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-violet-500 hover:shadow-[0_0_25px_rgba(139,92,246,0.35)] focus:outline-none focus:ring-4 focus:ring-violet-500/20"
+                        >
+                            <svg
+                                class="h-4 w-4 transition-transform duration-300 group-hover:rotate-[-8deg]"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2.5"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M5 13l4 4L19 7"
+                                />
                             </svg>
 
                             Perbarui Task
-
                         </button>
 
                     </div>
 
                 </form>
+
             </div>
 
         </div>
