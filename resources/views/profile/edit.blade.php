@@ -36,9 +36,9 @@
                 <div class="flex h-20 items-center border-b border-slate-100 px-6">
 
                     <div>
-                        <p class="text-xl font-extrabold tracking-tight text-indigo-600">
-                            TaskFlow
-                        </p>
+                        <h1 class="text-xl font-bold tracking-tight text-slate-900">
+                            Task<span class="text-indigo-600">Flow</span>
+                        </h1>
 
                         <p class="mt-0.5 text-xs font-medium text-slate-400">
                             Kelola Tugas Sekolah Tanpa Ribet!

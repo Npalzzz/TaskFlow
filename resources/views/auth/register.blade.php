@@ -71,11 +71,11 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 px-2" />
         </div>
 
-        {{-- Register button --}}
-        <button type="submit"
-                class="mt-2 w-full rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 py-3.5 text-sm font-bold tracking-wide text-white shadow-lg shadow-indigo-500/30 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-500/40 active:scale-[0.98]">
-            Daftar Sekarang
-        </button>
+       {{-- Register button --}}
+<button type="submit"
+        class="mt-2 w-full rounded-2xl bg-gradient-to-r from-gray-900 via-slate-900 to-indigo-950 py-3.5 text-sm font-bold tracking-wide text-white shadow-lg shadow-gray-900/30 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-900/40 active:scale-[0.98]">
+    Daftar Sekarang
+</button>
 
         <p class="pt-4 text-center text-sm font-medium text-gray-600">
             Sudah memiliki akun?

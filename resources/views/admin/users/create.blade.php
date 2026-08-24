@@ -41,32 +41,32 @@
     <div class="min-h-screen bg-gray-50 py-8">
         <div class="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8">
 
-            {{-- Banner --}}
-            <div class="relative mb-6 overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-700 px-6 py-7 text-white shadow-sm sm:px-8">
-                <div class="relative z-10 flex items-center gap-4">
-                    <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-white/15 text-3xl backdrop-blur-sm">
-                        +
-                    </div>
+           {{-- Banner --}}
+<div class="relative mb-6 overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900 via-slate-900 to-indigo-950 px-6 py-7 text-white shadow-sm sm:px-8">
+    <div class="relative z-10 flex items-center gap-4">
+        <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-3xl backdrop-blur-sm border border-white/5">
+            +
+        </div>
 
-                    <div>
-                        <p class="text-sm font-medium text-indigo-100">
-                            Akun baru TaskFlow
-                        </p>
+        <div>
+            <p class="text-sm font-medium text-indigo-200">
+                Akun baru TaskFlow
+            </p>
 
-                        <h1 class="mt-1 text-2xl font-bold">
-                            Tambah Pengguna
-                        </h1>
+            <h1 class="mt-1 text-2xl font-bold">
+                Tambah Pengguna
+            </h1>
 
-                        <p class="mt-1 text-sm text-indigo-100">
-                            Isi informasi akun dengan lengkap dan benar.
-                        </p>
-                    </div>
-                </div>
+            <p class="mt-1 text-sm text-indigo-200/80">
+                Isi informasi akun dengan lengkap dan benar.
+            </p>
+        </div>
+    </div>
 
-                <div class="absolute -right-16 -top-20 h-56 w-56 rounded-full bg-white/10"></div>
-                <div class="absolute -bottom-28 right-20 h-48 w-48 rounded-full bg-violet-400/20"></div>
-            </div>
-
+    <!-- Dekorasi Lingkaran -->
+    <div class="absolute -right-16 -top-20 h-56 w-56 rounded-full bg-white/5"></div>
+    <div class="absolute -bottom-28 right-20 h-48 w-48 rounded-full bg-indigo-500/10"></div>
+</div>
             {{-- Error umum --}}
             @if ($errors->any())
                 <div class="mb-6 rounded-2xl border border-rose-100 bg-rose-50 px-5 py-4 text-rose-700 shadow-sm">

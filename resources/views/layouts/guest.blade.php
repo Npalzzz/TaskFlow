@@ -10,11 +10,11 @@
     <div class="min-h-screen flex flex-col lg:flex-row">
 
         {{-- Panel kiri: branding --}}
-        <div class="relative lg:w-[42%] xl:w-1/2 bg-gradient-to-br from-indigo-600 via-indigo-600 to-blue-700 text-white px-8 sm:px-12 py-10 flex flex-col justify-between overflow-hidden">
+        <div class="relative lg:w-[42%] xl:w-1/2 bg-gradient-to-br from-gray-900 via-slate-900 to-indigo-950 text-white px-8 sm:px-12 py-10 flex flex-col justify-between overflow-hidden">
 
-            {{-- Dekorasi blob, murni dekoratif --}}
-            <div class="pointer-events-none absolute -top-24 -right-20 w-72 h-72 rounded-full bg-white/10 blur-3xl"></div>
-            <div class="pointer-events-none absolute bottom-0 -left-16 w-64 h-64 rounded-full bg-white/10 blur-3xl"></div>
+            {{-- Dekorasi blob, disesuaikan agar tidak terlalu terang di background gelap --}}
+            <div class="pointer-events-none absolute -top-24 -right-20 w-72 h-72 rounded-full bg-indigo-500/10 blur-3xl"></div>
+            <div class="pointer-events-none absolute bottom-0 -left-16 w-64 h-64 rounded-full bg-indigo-500/10 blur-3xl"></div>
 
             {{-- Logo --}}
             <a href="/" class="relative flex items-center gap-2.5">
@@ -24,7 +24,7 @@
                 </svg>
                 <div class="leading-tight">
                     <p class="font-bold tracking-wide">TASKFLOW</p>
-                    <p class="text-[10px] tracking-[0.2em] text-indigo-200">SINCE 2026</p>
+                    <p class="text-[10px] tracking-[0.2em] text-indigo-300">SINCE 2026</p>
                 </div>
             </a>
 
@@ -35,7 +35,7 @@
                 </h1>
             </div>
 
-            {{-- Mockup mini task card, mengambil bahasa visual dari dashboard --}}
+            {{-- Mockup mini task card (Efek glassmorphism sudah sangat cocok di background gelap) --}}
             <div class="relative hidden lg:block h-56 mt-6">
                 <div class="absolute left-2 top-2 w-60 -rotate-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 p-4 shadow-lg">
                     <div class="flex items-center gap-3">
@@ -69,7 +69,7 @@
             </div>
 
             {{-- Tagline bawah --}}
-            <p class="relative mt-6 text-indigo-100">
+            <p class="relative mt-6 text-indigo-200">
                 Gak ada lagi cerita lupa ngerjain PR!
             </p>
         </div>

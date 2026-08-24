@@ -20,27 +20,25 @@
 
             <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
-                {{-- Judul --}}
                 <div>
 
-                    <p class="text-sm font-medium text-indigo-600">
+                    <p class="text-sm font-semibold text-indigo-700">
                         TaskFlow Admin
                     </p>
 
-                    <h2 class="mt-1 text-2xl font-bold text-gray-900">
+                    <h2 class="mt-1 text-2xl font-bold tracking-tight text-gray-900">
                         Manajemen Pengguna
                     </h2>
 
                 </div>
 
 
-                {{-- Navigasi --}}
                 <div class="flex items-center gap-3">
 
                     {{-- Kembali ke Dashboard Admin --}}
                     <a
                         href="{{ route('admin.dashboard') }}"
-                        class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600"
+                        class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700"
                     >
 
                         <svg
@@ -63,7 +61,7 @@
 
 
                     {{-- Label Admin --}}
-                    <span class="hidden rounded-full bg-indigo-50 px-3 py-1.5 text-sm font-medium text-indigo-700 md:inline-flex">
+                    <span class="hidden rounded-full bg-indigo-50 px-3 py-1.5 text-sm font-medium text-indigo-800 ring-1 ring-indigo-100 md:inline-flex">
                         Admin Panel
                     </span>
 
@@ -77,13 +75,13 @@
             {{-- HERO --}}
             {{-- ========================================================= --}}
 
-            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-700 p-6 text-white shadow-sm md:p-8">
+            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 via-slate-900 to-indigo-950 p-6 text-white shadow-xl shadow-indigo-950/10 md:p-8">
 
                 <div class="relative z-10 flex flex-col justify-between gap-6 md:flex-row md:items-center">
 
                     <div>
 
-                        <p class="text-sm font-medium text-indigo-100">
+                        <p class="text-sm font-medium text-indigo-200">
                             Kelola akun TaskFlow
                         </p>
 
@@ -91,14 +89,15 @@
                             Manajemen Pengguna
                         </h1>
 
-                        <p class="mt-3 max-w-2xl text-sm text-indigo-100 md:text-base">
+                        <p class="mt-3 max-w-2xl text-sm text-indigo-200/80 md:text-base">
                             Kelola akun admin dan pengguna yang terdaftar di aplikasi TaskFlow.
                         </p>
 
                     </div>
 
 
-                    <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-white/15 text-4xl backdrop-blur-sm">
+                    {{-- Icon --}}
+                    <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-indigo-400/10 bg-indigo-500/10 text-4xl backdrop-blur-sm">
                         👥
                     </div>
 
@@ -106,9 +105,11 @@
 
 
                 {{-- Decorative circles --}}
-                <div class="absolute -right-10 -top-16 h-52 w-52 rounded-full bg-white/10"></div>
+                <div class="absolute -right-10 -top-16 h-52 w-52 rounded-full bg-white/5"></div>
 
-                <div class="absolute -bottom-24 right-24 h-48 w-48 rounded-full bg-violet-400/20"></div>
+                <div class="absolute -bottom-24 right-24 h-48 w-48 rounded-full bg-indigo-700/20"></div>
+
+                <div class="absolute -left-20 bottom-[-80px] h-40 w-40 rounded-full bg-indigo-500/10"></div>
 
             </div>
 
@@ -139,7 +140,6 @@
                         </svg>
 
                     </div>
-
 
                     <p class="text-sm font-medium">
                         {{ session('success') }}
@@ -177,7 +177,6 @@
 
                     </div>
 
-
                     <p class="text-sm font-medium">
                         {{ session('error') }}
                     </p>
@@ -199,7 +198,6 @@
                     <p class="text-sm font-semibold">
                         Terjadi kesalahan:
                     </p>
-
 
                     <ul class="mt-2 list-inside list-disc text-sm">
 
@@ -227,7 +225,7 @@
 
 
                 {{-- TOTAL USER --}}
-                <div class="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+                <div class="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-950/5">
 
                     <div class="flex items-start justify-between gap-4">
 
@@ -237,7 +235,7 @@
                                 Total User
                             </p>
 
-                            <p class="mt-2 text-3xl font-bold text-gray-900">
+                            <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900">
                                 {{ $totalUsers }}
                             </p>
 
@@ -248,7 +246,7 @@
                         </div>
 
 
-                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 transition group-hover:bg-indigo-600 group-hover:text-white">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-50 text-indigo-700 transition duration-300 group-hover:bg-indigo-700 group-hover:text-white">
 
                             <svg
                                 class="h-6 w-6"
@@ -273,7 +271,7 @@
 
 
                 {{-- TOTAL ADMIN --}}
-                <div class="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+                <div class="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-950/5">
 
                     <div class="flex items-start justify-between gap-4">
 
@@ -283,7 +281,7 @@
                                 Total Admin
                             </p>
 
-                            <p class="mt-2 text-3xl font-bold text-gray-900">
+                            <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900">
                                 {{ $totalAdmins }}
                             </p>
 
@@ -294,7 +292,7 @@
                         </div>
 
 
-                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-violet-50 text-violet-600 transition group-hover:bg-violet-600 group-hover:text-white">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-50 text-indigo-700 transition duration-300 group-hover:bg-indigo-700 group-hover:text-white">
 
                             <svg
                                 class="h-6 w-6"
@@ -319,7 +317,7 @@
 
 
                 {{-- TOTAL PENGGUNA --}}
-                <div class="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+                <div class="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-950/5">
 
                     <div class="flex items-start justify-between gap-4">
 
@@ -329,7 +327,7 @@
                                 Total Pengguna
                             </p>
 
-                            <p class="mt-2 text-3xl font-bold text-gray-900">
+                            <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900">
                                 {{ $totalRegularUsers }}
                             </p>
 
@@ -340,7 +338,7 @@
                         </div>
 
 
-                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-teal-50 text-teal-600 transition group-hover:bg-teal-600 group-hover:text-white">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-50 text-indigo-700 transition duration-300 group-hover:bg-indigo-700 group-hover:text-white">
 
                             <svg
                                 class="h-6 w-6"
@@ -378,7 +376,7 @@
 
                     <div class="flex items-center gap-3">
 
-                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-700">
 
                             <svg
                                 class="h-5 w-5"
@@ -421,7 +419,7 @@
 
                         <a
                             href="{{ route('admin.users.create') }}"
-                            class="inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white transition hover:bg-indigo-700"
+                            class="inline-flex items-center gap-1.5 rounded-lg bg-indigo-700 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-800"
                         >
 
                             <svg
@@ -467,7 +465,7 @@
                     @endphp
 
 
-                    <div class="group border-b border-gray-50 px-6 py-5 transition last:border-0 hover:bg-gray-50/70">
+                    <div class="group border-b border-gray-50 px-6 py-5 transition last:border-0 hover:bg-indigo-50/30">
 
                         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
 
@@ -475,7 +473,7 @@
                             {{-- Informasi user --}}
                             <div class="flex min-w-0 items-center gap-4">
 
-                                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 text-lg font-bold text-white">
+                                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-gray-900 via-slate-900 to-indigo-800 text-lg font-bold text-white shadow-sm shadow-indigo-950/20">
                                     {{ $initial }}
                                 </div>
 
@@ -503,9 +501,9 @@
                                 {{-- ROLE --}}
                                 @if ($isAdmin)
 
-                                    <span class="inline-flex items-center gap-1.5 rounded-full bg-violet-50 px-3 py-1.5 text-xs font-medium text-violet-700">
+                                    <span class="inline-flex items-center gap-1.5 rounded-full bg-indigo-100 px-3 py-1.5 text-xs font-semibold text-indigo-800">
 
-                                        <span class="h-1.5 w-1.5 rounded-full bg-violet-500"></span>
+                                        <span class="h-1.5 w-1.5 rounded-full bg-indigo-700"></span>
 
                                         Admin
 
@@ -515,7 +513,7 @@
 
                                     <span class="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1.5 text-xs font-medium text-indigo-700">
 
-                                        <span class="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+                                        <span class="h-1.5 w-1.5 rounded-full bg-indigo-600"></span>
 
                                         User
 
@@ -547,7 +545,7 @@
                                 {{-- EDIT --}}
                                 <a
                                     href="{{ route('admin.users.edit', $user) }}"
-                                    class="inline-flex items-center gap-1.5 rounded-lg bg-indigo-50 px-3 py-2 text-sm font-medium text-indigo-600 transition hover:bg-indigo-100"
+                                    class="inline-flex items-center gap-1.5 rounded-lg bg-indigo-50 px-3 py-2 text-sm font-medium text-indigo-700 transition hover:bg-indigo-100"
                                 >
 
                                     <svg
@@ -633,7 +631,7 @@
 
                     <div class="flex flex-col items-center justify-center px-6 py-16 text-center">
 
-                        <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-500">
+                        <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-700">
 
                             <svg
                                 class="h-8 w-8"
@@ -663,7 +661,7 @@
 
                         <a
                             href="{{ route('admin.users.create') }}"
-                            class="mt-5 inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700"
+                            class="mt-5 inline-flex items-center gap-2 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-indigo-800 hover:shadow-md"
                         >
 
                             <svg
@@ -700,7 +698,7 @@
 
                 <div class="flex items-start gap-3">
 
-                    <div class="mt-0.5 text-indigo-600">
+                    <div class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-indigo-700 shadow-sm">
 
                         <svg
                             class="h-5 w-5"
@@ -721,7 +719,7 @@
 
                     <div>
 
-                        <p class="text-sm font-medium text-indigo-900">
+                        <p class="text-sm font-semibold text-indigo-950">
                             Catatan admin
                         </p>
 
@@ -741,3 +739,4 @@
     </div>
 
 </x-app-layout>
+
