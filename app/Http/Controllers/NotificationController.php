@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\DatabaseNotification;
@@ -15,13 +16,22 @@ class NotificationController extends Controller
      */
     public function index(): View
     {
-        $notifications = auth()->user()
+        $user = auth()->user();
+
+        $notifications = $user
             ->notifications()
             ->latest()
-            ->get();
+            ->get()
+            ->filter(function (DatabaseNotification $notification) {
+                return $this->isRelevantNotification($notification);
+            });
 
-        $unreadCount = auth()->user()
+        $unreadCount = $user
             ->unreadNotifications()
+            ->get()
+            ->filter(function (DatabaseNotification $notification) {
+                return $this->isRelevantNotification($notification);
+            })
             ->count();
 
         return view('notifications.index', compact(
@@ -43,6 +53,9 @@ class NotificationController extends Controller
             ->latest()
             ->take(10)
             ->get()
+            ->filter(function (DatabaseNotification $notification) {
+                return $this->isRelevantNotification($notification);
+            })
             ->map(function (DatabaseNotification $notification) {
 
                 return [
@@ -62,7 +75,8 @@ class NotificationController extends Controller
 
                     'created_at' => $notification->created_at?->toISOString(),
                 ];
-            });
+            })
+            ->values();
 
 
         return response()->json([
@@ -70,8 +84,75 @@ class NotificationController extends Controller
 
             'unread_count' => $user
                 ->unreadNotifications()
+                ->get()
+                ->filter(function (DatabaseNotification $notification) {
+                    return $this->isRelevantNotification($notification);
+                })
                 ->count(),
         ]);
+    }
+
+
+    /**
+     * Mengecek apakah notification masih relevan untuk ditampilkan.
+     *
+     * Notification yang memiliki task_id dianggap sebagai
+     * notification yang berhubungan dengan task.
+     *
+     * Jika task tersebut sudah selesai atau sudah dihapus,
+     * notification tidak ditampilkan lagi.
+     */
+    private function isRelevantNotification(
+        DatabaseNotification $notification
+    ): bool {
+
+        $taskId = $notification->data['task_id'] ?? null;
+
+        /*
+        |----------------------------------------------------------------------
+        | Notification yang tidak berhubungan dengan task
+        |----------------------------------------------------------------------
+        |
+        | Notification lain tetap ditampilkan.
+        |
+        */
+
+        if (!$taskId) {
+            return true;
+        }
+
+
+        /*
+        |----------------------------------------------------------------------
+        | Cari task
+        |----------------------------------------------------------------------
+        */
+
+        $task = Task::find($taskId);
+
+
+        /*
+        |----------------------------------------------------------------------
+        | Task sudah tidak ada
+        |----------------------------------------------------------------------
+        |
+        | Jika task sudah dihapus, notification deadline tersebut
+        | tidak lagi relevan.
+        |
+        */
+
+        if (!$task) {
+            return false;
+        }
+
+
+        /*
+        |----------------------------------------------------------------------
+        | Pastikan task masih aktif
+        |----------------------------------------------------------------------
+        */
+
+        return $task->status !== 'Selesai';
     }
 
 
@@ -83,9 +164,9 @@ class NotificationController extends Controller
         DatabaseNotification $notification
     ): RedirectResponse {
         /*
-        |--------------------------------------------------------------------------
+        |----------------------------------------------------------------------
         | Pastikan notification milik user yang sedang login
-        |--------------------------------------------------------------------------
+        |----------------------------------------------------------------------
         */
 
         abort_unless(
@@ -96,19 +177,19 @@ class NotificationController extends Controller
 
 
         /*
-        |--------------------------------------------------------------------------
+        |----------------------------------------------------------------------
         | Tandai sebagai sudah dibaca
-        |--------------------------------------------------------------------------
+        |----------------------------------------------------------------------
         */
 
         $notification->markAsRead();
 
 
         /*
-        |--------------------------------------------------------------------------
+        |----------------------------------------------------------------------
         | Jika notification berasal dari TaskDeadlineReminder,
         | arahkan user langsung ke task tersebut.
-        |--------------------------------------------------------------------------
+        |----------------------------------------------------------------------
         */
 
         $taskId = $notification->data['task_id'] ?? null;
@@ -130,9 +211,9 @@ class NotificationController extends Controller
         DatabaseNotification $notification
     ): JsonResponse {
         /*
-        |--------------------------------------------------------------------------
+        |----------------------------------------------------------------------
         | Pastikan notification milik user yang sedang login
-        |--------------------------------------------------------------------------
+        |----------------------------------------------------------------------
         */
 
         abort_unless(
@@ -143,9 +224,9 @@ class NotificationController extends Controller
 
 
         /*
-        |--------------------------------------------------------------------------
+        |----------------------------------------------------------------------
         | Tandai sebagai sudah dibaca
-        |--------------------------------------------------------------------------
+        |----------------------------------------------------------------------
         */
 
         $notification->markAsRead();
@@ -156,6 +237,10 @@ class NotificationController extends Controller
 
             'unread_count' => auth()->user()
                 ->unreadNotifications()
+                ->get()
+                ->filter(function (DatabaseNotification $notification) {
+                    return $this->isRelevantNotification($notification);
+                })
                 ->count(),
         ]);
     }

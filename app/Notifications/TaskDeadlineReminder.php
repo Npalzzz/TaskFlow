@@ -48,7 +48,7 @@ class TaskDeadlineReminder extends Notification
             'message' => 'Tugas "' . $this->task->judul .
                 '" akan mencapai deadline pada ' .
                 ($this->task->deadline
-                    ? $this->task->deadline->format('d M Y')
+                    ? $this->task->deadline->format('d M Y')   
                     : '-')
                 . '.',
         ];
