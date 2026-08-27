@@ -72,26 +72,27 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('tasks', TaskController::class);
 
+
     /*
-|--------------------------------------------------------------------------
-| Notifications
-|--------------------------------------------------------------------------
-*/
+    |--------------------------------------------------------------------------
+    | Notifications
+    |--------------------------------------------------------------------------
+    */
 
-Route::get('/notifications', [NotificationController::class, 'index'])
-    ->name('notifications.index');
+    Route::get('/notifications', [NotificationController::class, 'index'])
+        ->name('notifications.index');
 
-Route::get('/notifications/latest', [NotificationController::class, 'latest'])
-    ->name('notifications.latest');
+    Route::get('/notifications/latest', [NotificationController::class, 'latest'])
+        ->name('notifications.latest');
 
-Route::post('/notifications/{notification}/read', [NotificationController::class, 'markAsRead'])
-    ->name('notifications.read');
+    Route::post('/notifications/{notification}/read', [NotificationController::class, 'markAsRead'])
+        ->name('notifications.read');
 
-Route::post('/notifications/{notification}/read-ajax', [NotificationController::class, 'markAsReadAjax'])
-    ->name('notifications.read.ajax');
+    Route::post('/notifications/{notification}/read-ajax', [NotificationController::class, 'markAsReadAjax'])
+        ->name('notifications.read.ajax');
 
-Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead'])
-    ->name('notifications.read.all');
+    Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead'])
+        ->name('notifications.read.all');
 });
 
 
@@ -111,12 +112,22 @@ Route::middleware(['auth', 'admin'])
 
         /*
         |--------------------------------------------------------------------------
-        | Admin Dashboard
+        | Admin Dashboard & Statistik
         |--------------------------------------------------------------------------
         */
 
         Route::get('/dashboard', [AdminController::class, 'index'])
             ->name('admin.dashboard');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Task Monitoring (Read-Only)
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/tasks/monitoring', [AdminController::class, 'monitorTasks'])
+            ->name('admin.tasks.monitoring');
 
 
         /*
