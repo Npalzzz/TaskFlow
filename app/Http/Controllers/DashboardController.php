@@ -163,11 +163,17 @@ class DashboardController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | Deadline H-7
+        | Tanggal Hari Ini
         |--------------------------------------------------------------------------
         */
 
         $today = Carbon::today();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Deadline H-7
+        |--------------------------------------------------------------------------
+        */
 
         $sevenDaysFromNow = Carbon::today()->addDays(7);
 
@@ -177,6 +183,35 @@ class DashboardController extends Controller
             ->whereDate('deadline', '>=', $today)
             ->whereDate('deadline', '<=', $sevenDaysFromNow)
             ->count();
+
+        /*
+        |--------------------------------------------------------------------------
+        | OVERDUE / TUGAS MELEWATI DEADLINE
+        |--------------------------------------------------------------------------
+        |
+        | Mengambil tugas yang:
+        | - Milik user yang sedang login
+        | - Belum selesai
+        | - Memiliki deadline
+        | - Deadline sudah melewati hari ini
+        |
+        */
+
+        $overdueTasks = Task::with('category')
+            ->where('user_id', $user->id)
+            ->where('status', '!=', 'Selesai')
+            ->whereNotNull('deadline')
+            ->whereDate('deadline', '<', $today)
+            ->orderBy('deadline', 'asc')
+            ->get();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Jumlah Task Overdue
+        |--------------------------------------------------------------------------
+        */
+
+        $overdueCount = $overdueTasks->count();
 
         /*
         |--------------------------------------------------------------------------
@@ -232,6 +267,8 @@ class DashboardController extends Controller
             'totalTasks',
             'completedTasks',
             'dueSoonCount',
+            'overdueCount',
+            'overdueTasks',
             'priorityTasks',
             'search',
             'sort',

@@ -7,6 +7,7 @@
     $totalTasks = $totalTasks ?? 0;
     $completedTasks = $completedTasks ?? 0;
     $dueSoonCount = $dueSoonCount ?? 0;
+    $overdueCount = $overdueCount ?? 0;
 
     $tasks = $tasks ?? collect();
     $priorityTasks = $priorityTasks ?? collect();
@@ -391,26 +392,132 @@
                     </div>
                 </div>
 
-                {{-- ================================================= --}}
-                {{-- DEADLINE ALERT --}}
-                {{-- ================================================= --}}
-                @if ($dueSoonCount > 0)
-                    <div class="mt-6 flex items-center gap-3 rounded-[2rem] border border-rose-100 bg-rose-50 px-6 py-5 text-rose-700">
-                        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-rose-100 text-xl">⚠️</div>
-                        <div>
-                            <p class="font-bold text-rose-900">Ada tugas yang mendekati deadline!</p>
-                            <p class="mt-0.5 text-sm font-medium text-rose-600">{{ $dueSoonCount }} tugas memiliki deadline dalam 7 hari ke depan.</p>
+              {{-- ========================================================= --}}
+{{-- DEADLINE ALERT --}}
+{{-- ========================================================= --}}
+
+{{-- OVERDUE ALERT --}}
+@if ($overdueCount > 0)
+    <div class="mt-6 overflow-hidden rounded-[2rem] border border-red-200 bg-white shadow-sm">
+
+        {{-- HEADER ALERT --}}
+        <div class="flex items-center gap-3 border-b border-red-200 bg-red-50 px-6 py-5">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-red-100 text-xl">
+                🚨
+            </div>
+
+            <div>
+                <p class="font-bold text-red-900">
+                    @if ($overdueCount == 1)
+                        Ada 1 tugas melewati deadline!
+                    @else
+                        Ada {{ $overdueCount }} tugas melewati deadline!
+                    @endif
+                </p>
+
+                <p class="mt-0.5 text-sm font-medium text-red-600">
+                    Segera selesaikan tugas yang sudah melewati batas waktu.
+                </p>
+            </div>
+        </div>
+
+        {{-- DAFTAR TUGAS OVERDUE --}}
+        <div>
+            @foreach ($overdueTasks as $task)
+                @php
+                    $deadline = \Carbon\Carbon::parse($task->deadline);
+                    $daysOverdue = $deadline->startOfDay()->diffInDays(now()->startOfDay());
+                    $categoryName = $task->category?->nama_kategori ?? 'Tanpa kategori';
+                @endphp
+
+                <div class="flex items-center gap-4 border-b border-red-50 px-6 py-4 transition-colors last:border-0 hover:bg-red-50/50">
+
+                    {{-- ICON --}}
+                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-100 text-red-600">
+                        !
+                    </div>
+
+                    {{-- TASK INFO --}}
+                    <div class="min-w-0 flex-1">
+                        <a href="{{ route('tasks.show', $task) }}"
+                           class="block truncate font-semibold text-gray-900 transition-colors hover:text-red-600">
+                            {{ $task->judul }}
+                        </a>
+
+                        <div class="mt-1 flex flex-wrap items-center gap-2">
+                            <span class="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-bold text-slate-500">
+                                {{ strtoupper($categoryName) }}
+                            </span>
+
+                            <span class="text-xs font-medium text-red-500">
+                                Deadline: {{ $deadline->translatedFormat('d F Y') }}
+                            </span>
                         </div>
                     </div>
-                @else
-                    <div class="mt-6 flex items-center gap-3 rounded-[2rem] border border-emerald-100 bg-emerald-50 px-6 py-5 text-emerald-600">
-                        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-emerald-100 text-xl">✓</div>
-                        <div>
-                            <p class="font-bold text-emerald-900">Semua aman terkendali</p>
-                            <p class="mt-0.5 text-sm font-medium text-emerald-700">Tidak ada deadline yang mendesak dalam 7 hari ke depan.</p>
-                        </div>
+
+                    {{-- STATUS OVERDUE --}}
+                    <div class="hidden shrink-0 sm:block">
+                        @if ($daysOverdue == 1)
+                            <span class="rounded-full bg-red-100 px-3 py-1 text-xs font-bold text-red-700">
+                                Terlambat 1 hari
+                            </span>
+                        @else
+                            <span class="rounded-full bg-red-100 px-3 py-1 text-xs font-bold text-red-700">
+                                Terlambat {{ $daysOverdue }} hari
+                            </span>
+                        @endif
                     </div>
-                @endif
+
+                    {{-- DETAIL BUTTON --}}
+                    <a href="{{ route('tasks.show', $task) }}"
+                       class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-red-50 text-red-500 transition-all hover:bg-red-100 hover:text-red-700">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M8.25 4.5l7.5 7.5-7.5 7.5"/>
+                        </svg>
+                    </a>
+
+                </div>
+            @endforeach
+        </div>
+
+    </div>
+@endif
+
+{{-- DEADLINE MENDATANG --}}
+@if ($dueSoonCount > 0)
+    <div class="mt-6 flex items-center gap-3 rounded-[2rem] border border-rose-100 bg-rose-50 px-6 py-5 text-rose-700">
+        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-rose-100 text-xl">
+            ⚠️
+        </div>
+
+        <div>
+            <p class="font-bold text-rose-900">
+                Ada tugas yang mendekati deadline!
+            </p>
+
+            <p class="mt-0.5 text-sm font-medium text-rose-600">
+                {{ $dueSoonCount }} tugas memiliki deadline dalam 7 hari ke depan.
+            </p>
+        </div>
+    </div>
+@elseif ($overdueCount == 0)
+    <div class="mt-6 flex items-center gap-3 rounded-[2rem] border border-emerald-100 bg-emerald-50 px-6 py-5 text-emerald-600">
+        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-emerald-100 text-xl">
+            ✓
+        </div>
+
+        <div>
+            <p class="font-bold text-emerald-900">
+                Semua aman terkendali
+            </p>
+
+            <p class="mt-0.5 text-sm font-medium text-emerald-700">
+                Tidak ada deadline yang mendesak dalam 7 hari ke depan.
+            </p>
+        </div>
+    </div>
+@endif
 
                 {{-- ================================================= --}}
                 {{-- STATISTICS (NEW BENTO BOX) --}}
