@@ -63,7 +63,7 @@ class DashboardController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | Ambil kategori milik user
+        | Categories
         |--------------------------------------------------------------------------
         */
 
@@ -73,7 +73,7 @@ class DashboardController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | Base Query Task
+        | Task Query
         |--------------------------------------------------------------------------
         */
 
@@ -153,7 +153,7 @@ class DashboardController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | Task Selesai
+        | Completed Task
         |--------------------------------------------------------------------------
         */
 
@@ -163,11 +163,14 @@ class DashboardController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | Tanggal Hari Ini
+        | Date Reference
         |--------------------------------------------------------------------------
         */
 
         $today = Carbon::today();
+
+        $sevenDaysFromNow = Carbon::today()
+            ->addDays(7);
 
         /*
         |--------------------------------------------------------------------------
@@ -175,25 +178,21 @@ class DashboardController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $sevenDaysFromNow = Carbon::today()->addDays(7);
-
         $dueSoonCount = Task::where('user_id', $user->id)
             ->where('status', '!=', 'Selesai')
             ->whereNotNull('deadline')
-            ->whereDate('deadline', '>=', $today)
-            ->whereDate('deadline', '<=', $sevenDaysFromNow)
+            ->whereBetween('deadline', [
+                $today->startOfDay(),
+                $sevenDaysFromNow->endOfDay()
+            ])
             ->count();
 
         /*
         |--------------------------------------------------------------------------
-        | OVERDUE / TUGAS MELEWATI DEADLINE
+        | OVERDUE TASK
         |--------------------------------------------------------------------------
         |
-        | Mengambil tugas yang:
-        | - Milik user yang sedang login
-        | - Belum selesai
-        | - Memiliki deadline
-        | - Deadline sudah melewati hari ini
+        | Mengambil maksimal 5 task yang sudah melewati deadline.
         |
         */
 
@@ -201,8 +200,9 @@ class DashboardController extends Controller
             ->where('user_id', $user->id)
             ->where('status', '!=', 'Selesai')
             ->whereNotNull('deadline')
-            ->whereDate('deadline', '<', $today)
+            ->where('deadline', '<', $today->startOfDay())
             ->orderBy('deadline', 'asc')
+            ->take(5)
             ->get();
 
         /*
@@ -211,7 +211,11 @@ class DashboardController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $overdueCount = $overdueTasks->count();
+        $overdueCount = Task::where('user_id', $user->id)
+            ->where('status', '!=', 'Selesai')
+            ->whereNotNull('deadline')
+            ->where('deadline', '<', $today->startOfDay())
+            ->count();
 
         /*
         |--------------------------------------------------------------------------
@@ -223,8 +227,10 @@ class DashboardController extends Controller
             ->where('user_id', $user->id)
             ->where('status', '!=', 'Selesai')
             ->whereNotNull('deadline')
-            ->whereDate('deadline', '>=', $today)
-            ->whereDate('deadline', '<=', $sevenDaysFromNow)
+            ->whereBetween('deadline', [
+                $today->startOfDay(),
+                $sevenDaysFromNow->endOfDay()
+            ])
             ->orderBy('deadline', 'asc')
             ->take(5)
             ->get();
@@ -233,9 +239,6 @@ class DashboardController extends Controller
         |--------------------------------------------------------------------------
         | Notification Centre
         |--------------------------------------------------------------------------
-        |
-        | Ambil 5 notification terbaru milik user.
-        |
         */
 
         $notifications = $user->notifications()
@@ -247,9 +250,6 @@ class DashboardController extends Controller
         |--------------------------------------------------------------------------
         | Unread Notifications
         |--------------------------------------------------------------------------
-        |
-        | Jumlah notification yang belum dibaca.
-        |
         */
 
         $unreadNotificationsCount = $user
@@ -279,3 +279,4 @@ class DashboardController extends Controller
         ));
     }
 }
+
