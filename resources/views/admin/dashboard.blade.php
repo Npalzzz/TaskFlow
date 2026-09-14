@@ -1222,7 +1222,7 @@
                         </div>
 
                         <p class="mt-1 text-xs text-gray-400">
-                            Lima pengguna terbaru yang terdaftar
+                            Daftar pengguna yang terdaftar
                         </p>
 
                     </div>
