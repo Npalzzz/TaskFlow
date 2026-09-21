@@ -14,9 +14,6 @@
 
     $categories = $categories ?? collect();
 
-    $notifications = $notifications ?? collect();
-    $unreadNotificationsCount = $unreadNotificationsCount ?? 0;
-
     $search = $search ?? '';
     $sort = $sort ?? 'latest';
     $category = $category ?? 'all';
@@ -513,230 +510,34 @@
                 {{-- ================================================= --}}
                 {{-- TOP BAR --}}
                 {{-- ================================================= --}}
-                <div class="mb-5 flex items-center justify-between gap-3 sm:mb-6 lg:justify-end">
+                <div class="mb-5 flex items-center gap-3 sm:mb-6 lg:hidden">
 
                     {{-- MOBILE HEADER --}}
-                    <div class="flex min-w-0 items-center gap-3 lg:hidden">
-
-                        <button
-                            type="button"
-                            @click="mobileMenuOpen = true"
-                            class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-500 shadow-sm transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600"
-                        >
-                            <span class="sr-only">Buka menu utama</span>
-
-                            <svg
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.8"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M4 6h16M4 12h16M4 18h16"
-                                />
-                            </svg>
-                        </button>
-
-                        <h1 class="truncate text-xl font-bold tracking-tight text-slate-900">
-                            Task<span class="text-indigo-600">Flow</span>
-                        </h1>
-
-                    </div>
-
-
-                    {{-- NOTIFICATION --}}
-                    <div
-                        x-data="notificationCentre()"
-                        x-init="init()"
-                        class="relative shrink-0"
+                    <button
+                        type="button"
+                        @click="mobileMenuOpen = true"
+                        class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-500 shadow-sm transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600"
                     >
+                        <span class="sr-only">Buka menu utama</span>
 
-                        <button
-                            type="button"
-                            @click="open = !open"
-                            @click.outside="open = false"
-                            class="relative flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-500 shadow-sm transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600"
-                            aria-label="Notifikasi"
+                        <svg
+                            class="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.8"
+                            stroke="currentColor"
                         >
-                            <svg
-                                class="h-6 w-6"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="1.8"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75V9a6 6 0 00-12 0v.75c0 2.114-.748 4.057-1.993 5.572a23.85 23.85 0 005.454 1.31m5.396 0a24.255 24.255 0 01-5.396 0m5.396 0a3 3 0 11-5.396 0"
-                                />
-                            </svg>
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M4 6h16M4 12h16M4 18h16"
+                            />
+                        </svg>
+                    </button>
 
-                            <template x-if="unreadCount > 0">
-                                <span
-                                    class="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-rose-500 px-1 text-[10px] font-bold text-white ring-2 ring-white"
-                                    x-text="unreadCount > 99 ? '99+' : unreadCount"
-                                ></span>
-                            </template>
-                        </button>
-
-
-                        {{-- NOTIFICATION DROPDOWN --}}
-                        <div
-                            x-show="open"
-                            x-transition
-                            style="display: none;"
-                            class="absolute right-0 z-50 mt-3 w-[calc(100vw-2rem)] max-w-sm overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl sm:w-96"
-                        >
-
-                            <div class="flex items-start justify-between gap-3 border-b border-gray-100 bg-gray-50 px-4 py-4 sm:px-5">
-
-                                <div class="min-w-0">
-                                    <h3 class="font-semibold text-gray-900">
-                                        Notifikasi
-                                    </h3>
-
-                                    <p class="truncate text-xs text-gray-400">
-                                        Pengingat tugas terbaru
-                                    </p>
-                                </div>
-
-                                <template x-if="unreadCount > 0">
-                                    <span
-                                        class="shrink-0 rounded-full bg-rose-100 px-2.5 py-1 text-xs font-semibold text-rose-600"
-                                        x-text="unreadCount + ' belum dibaca'"
-                                    ></span>
-                                </template>
-
-                            </div>
-
-
-                            <div class="max-h-96 overflow-y-auto">
-
-                                <template
-                                    x-for="notification in notifications"
-                                    :key="notification.id"
-                                >
-
-                                    <a
-                                        :href="notification.task_id
-                                            ? '{{ url('/tasks') }}/' + notification.task_id
-                                            : '{{ route('notifications.index') }}'"
-                                        @click="markAsRead(notification)"
-                                        class="flex gap-3 border-b border-gray-50 px-4 py-4 transition last:border-0 sm:px-5"
-                                        :class="notification.read_at
-                                            ? 'bg-white hover:bg-gray-50'
-                                            : 'bg-indigo-50/50 hover:bg-indigo-50'"
-                                    >
-
-                                        <div
-                                            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl"
-                                            :class="notification.read_at
-                                                ? 'bg-gray-100 text-gray-400'
-                                                : 'bg-rose-100 text-rose-600'"
-                                        >
-                                            <svg
-                                                class="h-4 w-4"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                stroke-width="2"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    d="M12 9v3.75m0 3.75h.008M10.29 3.86l-7.5 13A1.5 1.5 0 004.09 19h15.82a1.5 1.5 0 001.3-2.25l-7.5-13a1.5 1.5 0 00-2.6 0z"
-                                                />
-                                            </svg>
-                                        </div>
-
-                                        <div class="min-w-0 flex-1">
-
-                                            <p
-                                                class="line-clamp-2 text-sm"
-                                                :class="notification.read_at
-                                                    ? 'font-medium text-gray-600'
-                                                    : 'font-semibold text-gray-900'"
-                                                x-text="notification.message || 'Ada notifikasi baru.'"
-                                            ></p>
-
-                                            <template x-if="notification.deadline">
-                                                <p
-                                                    class="mt-1 text-xs text-gray-400"
-                                                    x-text="'Deadline: ' + formatDeadline(notification.deadline)"
-                                                ></p>
-                                            </template>
-
-                                            <p
-                                                class="mt-1 text-[11px] text-gray-400"
-                                                x-text="formatTime(notification.created_at)"
-                                            ></p>
-
-                                        </div>
-
-                                        <template x-if="!notification.read_at">
-                                            <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-indigo-600"></span>
-                                        </template>
-
-                                    </a>
-
-                                </template>
-
-
-                                <template x-if="notifications.length === 0">
-
-                                    <div class="px-5 py-10 text-center">
-
-                                        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gray-100 text-gray-400">
-
-                                            <svg
-                                                class="h-6 w-6"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                stroke-width="1.8"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75V9a6 6 0 00-12 0v.75c0 2.114-.748 4.057-1.993 5.572a23.85 23.85 0 005.454 1.31m5.396 0a24.255 24.255 0 01-5.396 0m5.396 0a3 3 0 11-5.396 0"
-                                                />
-                                            </svg>
-
-                                        </div>
-
-                                        <p class="mt-3 text-sm font-medium text-gray-700">
-                                            Tidak ada notifikasi
-                                        </p>
-
-                                        <p class="mt-1 text-xs text-gray-400">
-                                            Semua pengingat akan muncul di sini.
-                                        </p>
-
-                                    </div>
-
-                                </template>
-
-                            </div>
-
-
-                            <div class="border-t border-gray-100 bg-gray-50 p-3">
-
-                                <a
-                                    href="{{ route('notifications.index') }}"
-                                    class="flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold text-indigo-600 transition hover:bg-indigo-100 hover:text-indigo-700"
-                                >
-                                    Lihat semua notifikasi →
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </div>
+                    <h1 class="truncate text-xl font-bold tracking-tight text-slate-900">
+                        Task<span class="text-indigo-600">Flow</span>
+                    </h1>
 
                 </div>
 
