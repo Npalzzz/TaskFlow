@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\User;
 use App\Models\Category;
 
 class Task extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'user_id',
         'category_id',
@@ -22,10 +25,6 @@ class Task extends Model
         'deadline_reminder_sent_at',
     ];
 
-
-    /**
-     * Casting tipe data Task.
-     */
     protected $casts = [
         'deadline' => 'date',
         'reminder_enabled' => 'boolean',

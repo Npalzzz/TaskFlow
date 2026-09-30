@@ -70,6 +70,28 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     */
 
+    /*
+     * Soft Delete / Trash
+     *
+     * Route khusus ini diletakkan SEBELUM
+     * Route::resource() agar /tasks/trash
+     * tidak dianggap sebagai /tasks/{task}.
+     */
+
+    Route::get('/tasks/trash', [TaskController::class, 'trash'])
+        ->name('tasks.trash');
+
+    Route::patch('/tasks/{id}/restore', [TaskController::class, 'restore'])
+        ->name('tasks.restore');
+
+    Route::delete('/tasks/{id}/force-delete', [TaskController::class, 'forceDelete'])
+        ->name('tasks.forceDelete');
+
+
+    /*
+     * CRUD Tasks
+     */
+
     Route::resource('tasks', TaskController::class);
 
 

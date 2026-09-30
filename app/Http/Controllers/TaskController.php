@@ -97,15 +97,11 @@ class TaskController extends Controller
 
             /*
              * Reminder otomatis aktif.
-             *
-             * Karena create.blade.php tidak memiliki
-             * checkbox reminder_enabled, maka setiap
-             * task baru akan mendapatkan reminder.
              */
             'reminder_enabled' => true,
 
             /*
-             * Menyimpan pilihan user:
+             * Menyimpan pilihan reminder:
              * H-1, H-2, H-3, atau H-7.
              */
             'reminder_days' => $validated['reminder_days'],
@@ -218,18 +214,6 @@ class TaskController extends Controller
         |--------------------------------------------------------------------------
         | Cek perubahan yang mempengaruhi reminder
         |--------------------------------------------------------------------------
-        |
-        | isDirty() WAJIB dilakukan sebelum save().
-        |
-        | Jika salah satu berubah:
-        |
-        | - deadline
-        | - status
-        | - reminder_enabled
-        | - reminder_days
-        |
-        | maka reminder sebelumnya harus di-reset.
-        |
         */
 
         $deadlineChanged = $task->isDirty('deadline');
@@ -255,11 +239,6 @@ class TaskController extends Controller
         |--------------------------------------------------------------------------
         | Sinkronisasi Deadline Reminder
         |--------------------------------------------------------------------------
-        |
-        | Jika deadline, status, atau pengaturan reminder
-        | berubah, notification lama dihapus dan status
-        | reminder di-reset.
-        |
         */
 
         if (
@@ -299,10 +278,6 @@ class TaskController extends Controller
         |--------------------------------------------------------------------------
         | Reset status reminder
         |--------------------------------------------------------------------------
-        |
-        | Scheduler akan menganggap task belum pernah
-        | mendapatkan reminder.
-        |
         */
 
         $task->update([
@@ -312,7 +287,73 @@ class TaskController extends Controller
 
 
     /**
+     * Menampilkan tugas yang sudah di-soft delete.
+     */
+    public function trash()
+    {
+        $tasks = Task::onlyTrashed()
+            ->with('category')
+            ->where('user_id', auth()->id())
+            ->latest('deleted_at')
+            ->get();
+
+        return view('tasks.trash', compact('tasks'));
+    }
+
+
+    /**
+     * Mengembalikan tugas dari Trash.
+     */
+    public function restore($id)
+    {
+        $task = Task::onlyTrashed()
+            ->where('user_id', auth()->id())
+            ->findOrFail($id);
+
+        $task->restore();
+
+        return redirect()
+            ->route('tasks.trash')
+            ->with('success', 'Tugas berhasil dipulihkan!');
+    }
+
+
+    /**
+     * Menghapus tugas secara permanen.
+     */
+    public function forceDelete($id)
+    {
+        $task = Task::onlyTrashed()
+            ->where('user_id', auth()->id())
+            ->findOrFail($id);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Hapus notification reminder jika masih ada.
+        |--------------------------------------------------------------------------
+        */
+
+        $this->clearDeadlineReminder($task);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Hapus task secara permanen dari database.
+        |--------------------------------------------------------------------------
+        */
+
+        $task->forceDelete();
+
+        return redirect()
+            ->route('tasks.trash')
+            ->with('success', 'Tugas berhasil dihapus secara permanen!');
+    }
+
+
+    /**
      * Menghapus tugas.
+     *
+     * Karena Task menggunakan SoftDeletes,
+     * $task->delete() hanya akan mengisi deleted_at.
      */
     public function destroy(Task $task)
     {
@@ -330,8 +371,12 @@ class TaskController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | Hapus task
+        | Soft Delete Task
         |--------------------------------------------------------------------------
+        |
+        | Karena model Task menggunakan SoftDeletes,
+        | delete() tidak menghapus data secara permanen.
+        |
         */
 
         $task->delete();
@@ -339,7 +384,7 @@ class TaskController extends Controller
 
         return redirect()
             ->route('tasks.index')
-            ->with('success', 'Tugas berhasil dihapus!');
+            ->with('success', 'Tugas berhasil dipindahkan ke sampah!');
     }
 
 

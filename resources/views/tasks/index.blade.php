@@ -68,78 +68,110 @@
                 </a>
 
 
-             {{-- Tambah Task --}}
-<a
-    href="{{ route('tasks.create') }}"
-    class="group inline-flex items-center gap-2 rounded-2xl bg-indigo-500 px-5 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-indigo-400 hover:shadow-[0_0_30px_rgba(99,102,241,0.35)]"
->
-    <svg
-        class="h-4 w-4 transition-transform duration-300 group-hover:rotate-90"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        viewBox="0 0 24 24"
-    >
-        <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 4.5v15m7.5-7.5h-15"
-        />
-    </svg>
+                {{-- Navigasi kanan --}}
+                <div class="flex items-center gap-3">
 
-    Tambah Task
-</a>
+                    {{-- Sampah --}}
+                    <a
+                        href="{{ route('tasks.trash') }}"
+                        class="group inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-gray-200 transition-all duration-300 hover:-translate-y-0.5 hover:bg-rose-50 hover:text-rose-600 hover:ring-rose-200"
+                    >
+
+                        <svg
+                            class="h-4 w-4 transition-transform duration-300 group-hover:scale-110"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M6 7h12M9.5 7V5a1.5 1.5 0 011.5-1.5h2A1.5 1.5 0 0114.5 5v2m-7 0l.6 11.4a2 2 0 002 1.9h3.8a2 2 0 002-1.9L16.5 7"
+                            />
+                        </svg>
+
+                        Sampah
+
+                    </a>
+
+
+                    {{-- Tambah Task --}}
+                    <a
+                        href="{{ route('tasks.create') }}"
+                        class="group inline-flex items-center gap-2 rounded-2xl bg-indigo-500 px-5 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-indigo-400 hover:shadow-[0_0_30px_rgba(99,102,241,0.35)]"
+                    >
+
+                        <svg
+                            class="h-4 w-4 transition-transform duration-300 group-hover:rotate-90"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M12 4.5v15m7.5-7.5h-15"
+                            />
+                        </svg>
+
+                        Tambah Task
+
+                    </a>
+
+                </div>
 
             </div>
 
 
-{{-- ===================================================== --}}
-{{-- HEADER HALAMAN --}}
-{{-- ===================================================== --}}
+            {{-- ===================================================== --}}
+            {{-- HEADER HALAMAN --}}
+            {{-- ===================================================== --}}
 
-<div class="relative overflow-hidden rounded-[2rem] bg-slate-900 p-8 shadow-2xl shadow-indigo-900/20 md:p-10">
+            <div class="relative overflow-hidden rounded-[2rem] bg-slate-900 p-8 shadow-2xl shadow-indigo-900/20 md:p-10">
 
-    {{-- Glow kanan atas --}}
-    <div class="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-indigo-500/40 blur-[80px] transition-opacity duration-500 hover:opacity-70"></div>
+                {{-- Glow kanan atas --}}
+                <div class="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-indigo-500/40 blur-[80px] transition-opacity duration-500 hover:opacity-70"></div>
 
-    {{-- Glow kiri bawah --}}
-    <div class="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-violet-600/30 blur-[80px]"></div>
+                {{-- Glow kiri bawah --}}
+                <div class="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-violet-600/30 blur-[80px]"></div>
 
-    {{-- Glow tengah --}}
-    <div class="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/10 blur-[70px]"></div>
-
-
-    <div class="relative z-10 flex flex-col justify-between gap-6 md:flex-row md:items-center">
-
-        <div>
-
-            <p class="text-xs font-bold uppercase tracking-widest text-indigo-400">
-                Task Management
-            </p>
-
-            <h1 class="mt-2 text-3xl font-extrabold tracking-tight text-white md:text-4xl">
-                Daftar Task
-            </h1>
-
-            <p class="mt-4 max-w-xl text-sm leading-relaxed text-slate-400 md:text-base">
-                Pantau, edit, dan kelola seluruh tugasmu agar pekerjaan tetap teratur dan tidak ada deadline yang terlewat.
-            </p>
-
-        </div>
+                {{-- Glow tengah --}}
+                <div class="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/10 blur-[70px]"></div>
 
 
-        {{-- Icon --}}
-        <div class="hidden shrink-0 md:flex">
+                <div class="relative z-10 flex flex-col justify-between gap-6 md:flex-row md:items-center">
 
-            <div class="flex h-20 w-20 items-center justify-center rounded-3xl border border-white/10 bg-white/5 text-4xl shadow-inner backdrop-blur-md">
-                📋
+                    <div>
+
+                        <p class="text-xs font-bold uppercase tracking-widest text-indigo-400">
+                            Task Management
+                        </p>
+
+                        <h1 class="mt-2 text-3xl font-extrabold tracking-tight text-white md:text-4xl">
+                            Daftar Task
+                        </h1>
+
+                        <p class="mt-4 max-w-xl text-sm leading-relaxed text-slate-400 md:text-base">
+                            Pantau, edit, dan kelola seluruh tugasmu agar pekerjaan tetap teratur dan tidak ada deadline yang terlewat.
+                        </p>
+
+                    </div>
+
+
+                    {{-- Icon --}}
+                    <div class="hidden shrink-0 md:flex">
+
+                        <div class="flex h-20 w-20 items-center justify-center rounded-3xl border border-white/10 bg-white/5 text-4xl shadow-inner backdrop-blur-md">
+                            📋
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
-
-        </div>
-
-    </div>
-
-</div>
 
 
             {{-- ===================================================== --}}
@@ -268,6 +300,7 @@
                 {{-- ================================================= --}}
 
                 <div class="divide-y divide-gray-100">
+
                     @forelse ($tasks as $task)
 
                         @php
@@ -346,12 +379,43 @@
                                     </p>
 
                                     <span class="inline-flex items-center rounded-lg border px-2.5 py-1 text-[11px] font-bold tracking-wide uppercase {{ $statusClass }}">
+
                                         @if($isDone)
-                                            <svg class="mr-1 h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+
+                                            <svg
+                                                class="mr-1 h-3 w-3"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="3"
+                                                    d="M5 13l4 4L19 7"
+                                                />
+                                            </svg>
+
                                         @else
-                                            <svg class="mr-1 h-3 w-3 animate-spin-slow" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+
+                                            <svg
+                                                class="mr-1 h-3 w-3 animate-spin-slow"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                                                />
+                                            </svg>
+
                                         @endif
+
                                         {{ $task->status ?? 'Belum' }}
+
                                     </span>
 
                                 </div>
@@ -365,21 +429,44 @@
                                     </p>
 
                                     <div class="flex items-center gap-1.5 text-sm font-semibold text-gray-700">
-                                        <svg class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+
+                                        <svg
+                                            class="h-4 w-4 text-gray-400"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                            />
                                         </svg>
+
                                         @if ($task->deadline)
+
                                             {{ \Carbon\Carbon::parse($task->deadline)->translatedFormat('d M Y') }}
+
                                         @else
-                                            <span class="text-gray-400 italic">Tidak ada</span>
+
+                                            <span class="text-gray-400 italic">
+                                                Tidak ada
+                                            </span>
+
                                         @endif
+
                                     </div>
 
                                 </div>
 
 
-                                {{-- Aksi --}}
+                                {{-- ================================================= --}}
+                                {{-- AKSI DESKTOP --}}
+                                {{-- ================================================= --}}
+
                                 <div class="flex shrink-0 items-center gap-2 opacity-100 transition-opacity md:opacity-60 md:group-hover:opacity-100">
+
 
                                     {{-- Lihat --}}
                                     <a
@@ -400,7 +487,13 @@
                                                 stroke-linejoin="round"
                                                 d="M2.25 12s3.75-6 9.75-6 9.75 6 9.75 6-3.75 6-9.75 6-9.75-6-9.75-6z"
                                             />
-                                            <circle cx="12" cy="12" r="2.5" />
+
+                                            <circle
+                                                cx="12"
+                                                cy="12"
+                                                r="2.5"
+                                            />
+
                                         </svg>
 
                                     </a>
@@ -425,21 +518,23 @@
                                                 stroke-linejoin="round"
                                                 d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13l-3.68 1.105 1.105-3.68a4.5 4.5 0 011.13-1.897l9.622-9.622z"
                                             />
+
                                             <path
                                                 stroke-linecap="round"
                                                 stroke-linejoin="round"
                                                 d="M19.5 7.125L16.875 4.5"
                                             />
+
                                         </svg>
 
                                     </a>
 
 
-                                    {{-- Hapus --}}
+                                    {{-- Soft Delete / Pindahkan ke Sampah --}}
                                     <form
                                         action="{{ route('tasks.destroy', $task) }}"
                                         method="POST"
-                                        onsubmit="return confirm('Yakin ingin menghapus task ini?')"
+                                        onsubmit="return confirm('Pindahkan task ini ke sampah?')"
                                     >
 
                                         @csrf
@@ -447,7 +542,7 @@
 
                                         <button
                                             type="submit"
-                                            title="Hapus task"
+                                            title="Pindahkan ke sampah"
                                             class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-rose-50 text-rose-600 transition-all duration-300 hover:scale-110 hover:bg-rose-500 hover:text-white hover:shadow-md hover:shadow-rose-200"
                                         >
 
@@ -468,6 +563,7 @@
                                         </button>
 
                                     </form>
+
 
                                 </div>
 
@@ -543,11 +639,19 @@
                                     </p>
 
                                     <div class="mt-1.5 flex items-center gap-1 text-sm font-semibold text-gray-700">
+
                                         @if ($task->deadline)
+
                                             {{ \Carbon\Carbon::parse($task->deadline)->translatedFormat('d M Y') }}
+
                                         @else
-                                            <span class="text-gray-400 italic">Tanpa deadline</span>
+
+                                            <span class="text-gray-400 italic">
+                                                Tanpa deadline
+                                            </span>
+
                                         @endif
+
                                     </div>
 
                                 </div>
@@ -557,6 +661,7 @@
 
                             <div class="mt-4 flex gap-2">
 
+                                {{-- Detail --}}
                                 <a
                                     href="{{ route('tasks.show', $task) }}"
                                     class="flex-1 rounded-xl bg-indigo-50 px-3 py-2.5 text-center text-xs font-bold text-indigo-600 transition-colors hover:bg-indigo-100"
@@ -565,6 +670,7 @@
                                 </a>
 
 
+                                {{-- Edit --}}
                                 <a
                                     href="{{ route('tasks.edit', $task) }}"
                                     class="rounded-xl bg-amber-50 px-4 py-2.5 text-xs font-bold text-amber-600 transition-colors hover:bg-amber-100"
@@ -573,11 +679,12 @@
                                 </a>
 
 
+                                {{-- Soft Delete --}}
                                 <form
                                     action="{{ route('tasks.destroy', $task) }}"
                                     method="POST"
                                     class="inline-block"
-                                    onsubmit="return confirm('Yakin ingin menghapus task ini?')"
+                                    onsubmit="return confirm('Pindahkan task ini ke sampah?')"
                                 >
 
                                     @csrf
@@ -587,7 +694,7 @@
                                         type="submit"
                                         class="rounded-xl bg-rose-50 px-4 py-2.5 text-xs font-bold text-rose-600 transition-colors hover:bg-rose-100"
                                     >
-                                        Hapus
+                                        🗑️ Sampah
                                     </button>
 
                                 </form>
@@ -595,6 +702,7 @@
                             </div>
 
                         </div>
+
 
                     @empty
 
@@ -605,9 +713,23 @@
                         <div class="flex flex-col items-center justify-center px-6 py-20 text-center">
 
                             <div class="relative flex h-20 w-20 items-center justify-center rounded-3xl bg-indigo-50 text-indigo-500 ring-1 ring-inset ring-indigo-100">
-                                
+
                                 <div class="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 text-white shadow-sm">
-                                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+
+                                    <svg
+                                        class="h-4 w-4"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="3"
+                                            d="M12 4v16m8-8H4"
+                                        />
+                                    </svg>
+
                                 </div>
 
                                 <svg
@@ -663,6 +785,7 @@
                         </div>
 
                     @endforelse
+
                 </div>
 
             </div>
@@ -702,7 +825,9 @@
                         </p>
 
                         <p class="mt-1 text-sm font-medium text-indigo-700/80">
-                            Kelompokkan tugas berdasarkan kategori dan selesaikan yang berprioritas <span class="font-bold text-rose-500">Tinggi</span> terlebih dahulu agar beban kerjamu lebih ringan.
+                            Kelompokkan tugas berdasarkan kategori dan selesaikan yang berprioritas
+                            <span class="font-bold text-rose-500">Tinggi</span>
+                            terlebih dahulu agar beban kerjamu lebih ringan.
                         </p>
 
                     </div>
@@ -717,3 +842,4 @@
     </div>
 
 </x-app-layout>
+
